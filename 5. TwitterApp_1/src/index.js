@@ -1,8 +1,11 @@
 import express from "express";
 import { PORT } from "./config/serverConfig.js";
 import apiRouter from "./routes/apiRoute.js";
+import morgan from "morgan";
 
 const app = express();
+
+app.use(morgan("combined"));
 
 app.use(express.json());
 app.use(express.text());
