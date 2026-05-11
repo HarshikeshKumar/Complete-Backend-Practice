@@ -1,6 +1,10 @@
 import express from "express";
+import { PORT } from "./config/serverConfig.js";
+import apiRouter from "./routes/apiRoute.js";
 
 const app = express();
+
+app.use("/api", apiRouter);
 
 app.get("/ping", (req, res) => {
   return res.json({
@@ -20,6 +24,6 @@ app.all(/.*/, (req, res) => {
   });
 });
 
-app.listen(3000, () => {
-  console.log("Server is running at https://localhost:3000");
+app.listen(PORT, () => {
+  console.log(`Server is running at https://localhost:${PORT}`);
 });
