@@ -4,6 +4,7 @@ import {
   v1TweetController,
   v1TweetControllerId,
 } from "../../controllers/tweetController.js";
+import { validateTweet } from "../../validators/tweetManualValidator.js";
 
 const router = express.Router();
 
@@ -11,6 +12,6 @@ router.get("/", v1TweetController);
 
 router.get("/:id", v1TweetControllerId);
 
-router.post("/create", createTweetController);
+router.post("/create", validateTweet, createTweetController);
 
 export default router;

@@ -12,9 +12,10 @@ export const v1TweetControllerId = (req, res) => {
 };
 
 export const createTweetController = (req, res) => {
-  return res.json({
+  return res.status(201).json({
     message: "Successfully Created Tweet..",
     success: true,
+    data: req.body,
   });
 };
 
