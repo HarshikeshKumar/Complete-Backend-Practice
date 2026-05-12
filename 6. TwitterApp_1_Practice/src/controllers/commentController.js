@@ -11,6 +11,13 @@ export const v1CommentControllerId = (req, res) => {
   });
 };
 
+export const v1AddCommentController = async (req, res) => {
+  return res.status(201).json({
+    success: true,
+    message: "Successfully Added a Comment",
+  });
+};
+
 export const v2CommentController = (req, res) => {
   return res.json({
     message: "V2 Comment route controller..",
