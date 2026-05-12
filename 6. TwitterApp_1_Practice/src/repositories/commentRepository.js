@@ -20,3 +20,14 @@ export const getAllCommentsRepo = async () => {
     throw error;
   }
 };
+
+// GET COMMENT BY ID................................
+export const getCommentByIdRepo = async (commentId) => {
+  try {
+    const comment = await Comment.findById(commentId);
+    return comment;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
