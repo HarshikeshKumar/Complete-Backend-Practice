@@ -1,9 +1,32 @@
-import { createCommentService } from "../services/commentService.js";
+import {
+  createCommentService,
+  getAllCommentService,
+} from "../services/commentService.js";
 
-export const v1CommentController = (req, res) => {
-  return res.json({
-    message: "V1 Comment route controller..",
-  });
+// GET ALL COMMENTS CONTROLLER........................
+export const v1CommentController = async (req, res) => {
+  try {
+    const comments = await getAllCommentService();
+
+    if (!comments) {
+      return res.status(400).json({
+        success: false,
+        message: "Comment Not Found",
+        data: [],
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: "Successfully Fetched Comments",
+      data: comments,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Internal Server Error",
+    });
+  }
 };
 
 export const v1CommentControllerId = (req, res) => {
@@ -13,6 +36,7 @@ export const v1CommentControllerId = (req, res) => {
   });
 };
 
+// CREATE COMMENT CONTROLLER..........................
 export const v1AddCommentController = async (req, res) => {
   // return res.status(201).json({
   //   success: true,
