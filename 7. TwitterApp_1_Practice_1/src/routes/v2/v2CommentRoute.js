@@ -4,6 +4,7 @@ import {
   getV2CommentController,
   getV2CommentControllerId,
 } from "../../controllers/commentController.js";
+import { commentManualValidator } from "../../validators/commentManualValidator.js";
 
 const router = express.Router();
 
@@ -11,6 +12,10 @@ router.get("/", getV2CommentController);
 
 router.get("/:id", getV2CommentControllerId);
 
-router.post("/createcomments", createV2CommentController);
+router.post(
+  "/createcomments",
+  commentManualValidator,
+  createV2CommentController,
+);
 
 export default router;
