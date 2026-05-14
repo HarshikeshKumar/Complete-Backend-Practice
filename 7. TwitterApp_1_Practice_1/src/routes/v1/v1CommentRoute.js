@@ -1,27 +1,16 @@
 import express from "express";
+import {
+  createV1CommentController,
+  getV1CommentController,
+  getV1CommentControllerId,
+} from "../../controllers/commentController.js";
 
 const router = express.Router();
 
-router.get("/", (req, res) => {
-  return res.status(200).json({
-    Message: "V1 Comment Router........",
-  });
-});
+router.get("/", getV1CommentController);
 
-router.get("/:id", (req, res) => {
-  return res.status(200).json({
-    Message: "V1 Comment Router With Id............",
-    id: req.params.id,
-  });
-});
+router.get("/:id", getV1CommentControllerId);
 
-router.post("/createcomments", (req, res) => {
-  console.log(req.body);
-  return res.status(201).json({
-    success: true,
-    Message: "V1 Comment Created Successfully.....",
-    comment: req.body.comment,
-  });
-});
+router.post("/createcomments", createV1CommentController);
 
 export default router;
