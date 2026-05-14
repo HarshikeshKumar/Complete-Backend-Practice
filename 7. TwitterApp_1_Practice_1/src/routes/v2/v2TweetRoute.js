@@ -4,7 +4,9 @@ import {
   getV2TweetController,
   getV2TweetControllerId,
 } from "../../controllers/tweetController.js";
-import { tweetManualValidator } from "../../validators/tweetManualValidator.js";
+import { tweetZodValidator } from "../../validators/tweetZodValidator.js";
+import { tweetZodSchema } from "../../validators/tweetZodSchema.js";
+// import { tweetManualValidator } from "../../validators/tweetManualValidator.js";
 
 const router = express.Router();
 
@@ -12,6 +14,11 @@ router.get("/", getV2TweetController);
 
 router.get("/:id", getV2TweetControllerId);
 
-router.post("/create", tweetManualValidator, createV2TweetController);
+// router.post("/create", tweetManualValidator, createV2TweetController);
+router.post(
+  "/create",
+  tweetZodValidator(tweetZodSchema),
+  createV2TweetController,
+);
 
 export default router;
