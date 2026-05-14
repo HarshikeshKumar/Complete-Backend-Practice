@@ -1,27 +1,16 @@
 import express from "express";
+import {
+  createV1TweetController,
+  getV1TweetController,
+  getV1TweetControllerId,
+} from "../../controllers/tweetController.js";
 
 const router = express.Router();
 
-router.get("/", (req, res) => {
-  return res.status(200).json({
-    Message: "V1 Tweet Router........",
-  });
-});
+router.get("/", getV1TweetController);
 
-router.get("/:id", (req, res) => {
-  return res.status(200).json({
-    Message: "V1 Tweet Router With Id............",
-    id: req.params.id,
-  });
-});
+router.get("/:id", getV1TweetControllerId);
 
-router.post("/create", (req, res) => {
-  console.log(req.body);
-  return res.status(201).json({
-    success: true,
-    Message: "V1 Tweet Created Successfully.....",
-    data: req.body.tweet,
-  });
-});
+router.post("/create", createV1TweetController);
 
 export default router;
