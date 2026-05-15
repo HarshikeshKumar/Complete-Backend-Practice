@@ -1,12 +1,34 @@
 // V1 TWEET CONTROLLER......................................
 
-import { createTweetService } from "../services/tweetService.js";
+import {
+  createTweetService,
+  getAllTweetsService,
+} from "../services/tweetService.js";
 
+// GET ALL TWEETS...................................
 export const getV1TweetController = async (req, res) => {
-  return res.status(200).json({
-    success: true,
-    Message: "Successfully Fetched V1 Tweet Controller..",
-  });
+  try {
+    const tweets = await getAllTweetsService();
+
+    if (!tweets) {
+      return res.status(404).json({
+        success: false,
+        Message: "Tweet Not Found..",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      Message: "Tweets Fetched Successfully..",
+      data: tweets,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      success: false,
+      Message: "Internal Server Error",
+    });
+  }
 };
 
 export const getV1TweetControllerId = async (req, res) => {
@@ -18,6 +40,7 @@ export const getV1TweetControllerId = async (req, res) => {
   });
 };
 
+// CREATE A TWEET....................................
 export const createV1TweetController = async (req, res) => {
   try {
     const response = await createTweetService(req.body);
