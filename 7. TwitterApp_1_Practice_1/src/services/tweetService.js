@@ -1,6 +1,7 @@
 import {
   createTweetRepo,
   getAllTweetsRepo,
+  getTweetByIdRepo,
 } from "../repositories/tweetRepository.js";
 
 export const createTweetService = async (tweetBody) => {
@@ -18,6 +19,16 @@ export const getAllTweetsService = async () => {
   try {
     const tweets = await getAllTweetsRepo();
     return tweets;
+  } catch (error) {
+    throw new Error("Service Error: ", error.message);
+  }
+};
+
+// GET TWEET BY ID.................................
+export const getTweetByIdService = async (tweetId) => {
+  try {
+    const tweet = await getTweetByIdRepo(tweetId);
+    return tweet;
   } catch (error) {
     throw new Error("Service Error: ", error.message);
   }

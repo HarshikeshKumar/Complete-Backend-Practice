@@ -19,3 +19,13 @@ export const getAllTweetsRepo = async () => {
     throw error;
   }
 };
+
+// GET TWEET BY ID.......................
+export const getTweetByIdRepo = async (tweetId) => {
+  try {
+    const tweet = await Tweetone.findById(tweetId);
+    return tweet;
+  } catch (error) {
+    throw error;
+  }
+};

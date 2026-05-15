@@ -3,6 +3,7 @@
 import {
   createTweetService,
   getAllTweetsService,
+  getTweetByIdService,
 } from "../services/tweetService.js";
 
 // GET ALL TWEETS...................................
@@ -31,13 +32,31 @@ export const getV1TweetController = async (req, res) => {
   }
 };
 
+// GET TWEET BY ID..................................
 export const getV1TweetControllerId = async (req, res) => {
-  console.log(req.params);
-  return res.status(200).json({
-    success: true,
-    Message: "Successfully Fetched V1 Tweet By Id Controller....",
-    id: req.params.id,
-  });
+  try {
+    const tweet = await getTweetByIdService(req.params.id);
+
+    if (!tweet) {
+      return res.status(404).json({
+        success: false,
+        Message: "Tweet Not Found",
+        data: {},
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      Message: "Tweet Fetched Successfully",
+      data: tweet,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      success: false,
+      Message: "Internal Server Error",
+    });
+  }
 };
 
 // CREATE A TWEET....................................
