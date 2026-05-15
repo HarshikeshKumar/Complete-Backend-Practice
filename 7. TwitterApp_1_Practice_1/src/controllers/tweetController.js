@@ -1,5 +1,7 @@
 // V1 TWEET CONTROLLER......................................
 
+import { createTweetService } from "../services/tweetService.js";
+
 export const getV1TweetController = async (req, res) => {
   return res.status(200).json({
     success: true,
@@ -17,12 +19,28 @@ export const getV1TweetControllerId = async (req, res) => {
 };
 
 export const createV1TweetController = async (req, res) => {
-  console.log(req.body);
-  return res.status(201).json({
-    success: true,
-    Message: "Successfully Created V1 Tweet............",
-    data: req.body.tweet,
-  });
+  try {
+    const response = await createTweetService(req.body);
+
+    if (!response) {
+      return res.status(404).json({
+        success: false,
+        Message: "Tweet Not Found",
+      });
+    }
+
+    return res.status(201).json({
+      success: true,
+      Message: "Tweet Created Successfully",
+      data: response,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      success: false,
+      Message: "Internal Server Error",
+    });
+  }
 };
 
 // V2 TWEET CONTROLLER........................................
